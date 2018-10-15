@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Media } from 'reactstrap';
+import Dishdetail from '../Components/DishdetailComponent';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
 
@@ -39,17 +40,15 @@ class Menu extends Component {
   render() {
     const menu = this.props.dishes.map((dish) => {
       return (
-              <div key={dish.id} className="col-12 mt-5">
-                <Media tag="li">
-                  <Media left middle>
-                      <Media object src={dish.image} alt={dish.name} />
-                  </Media>
-                  <Media body className="ml-5">
-                    <Media heading>{dish.name}</Media>
-                    <p>{dish.description}</p>
-                  </Media>
-                </Media>
-              </div>
+        <div  className="col-12 col-md-5 m-1">
+          <Card key={dish.id}
+            onClick={() => this.onDishSelect(dish)}>
+            <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <CardImgOverlay>
+                <CardTitle>{dish.name}</CardTitle>
+            </CardImgOverlay>
+          </Card>
+        </div>
             );
         });
 
@@ -58,11 +57,7 @@ class Menu extends Component {
             <div className="row">
                   {menu}
             </div>
-            <div className="row">
-              <div className="col-12 col-md-5 m-1">
-                {this.renderDish(this.state.selectedDish)}
-              </div>
-            </div>
+          <Dishdetail dish={this.state.selectedDish} > </Dishdetail>
           </div>
         );
     }
